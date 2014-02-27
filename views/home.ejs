@@ -1,0 +1,39 @@
+<html>
+	<meta>
+	  	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>    
+		<script type="text/javascript">
+			$(function(){
+				$('#send').click(function(){  
+					var data = {};
+						data.city = $("#city").val();
+						data.state = $("#state").val();
+					 alert(JSON.stringify(data));
+				     $.ajax({ 
+				           url: '/weather/forecast',
+				           type: 'POST',
+				           cache: false, 
+				           data: JSON.stringify(data), 
+				           contentType: "application/json",
+				           success: function(data){
+	                          console.log(data);
+	                          $('#response').html(data);
+				           }, 
+				           error: function(jqXHR, textStatus, err){
+				               alert('text status '+textStatus+', err '+err)
+				           }
+				        })
+				});
+			});   		
+		</script>
+	</meta>
+	<body>
+		<form name="form" method="get" onsubmit="return  false;">
+			<p>City</p>
+			<p><input type="text" name="city" id="city"/></p>
+			<p>State</p>
+			<p><input type="text" name="state" id="state"/></p>
+			<p><button name="button" id="send">Send</button></p>
+		</form>
+		<div id="response"></div>
+	</body>
+</html>

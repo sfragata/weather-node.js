@@ -1,0 +1,7 @@
+<h1>Weather for <%= weather.name%>, <%= weather.sys.country%></h1>
+
+<p><b>Main:</b> <%= weather.weather[0].main %></p><img src="http://openweathermap.org/img/w/03n" />
+<p><b>Descrition:</b> <%= weather.weather[0].description %></p>
+<p><b>Temp:</b> <%= weather.main.temp %> °C</p>
+<p><b>Temperature min:</b> <%= weather.main.temp_min %> °C</p>
+<p><b>Temperature max:</b> <%= weather.main.temp_max %> °C</p>
