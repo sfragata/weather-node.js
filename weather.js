@@ -21,7 +21,6 @@ app.get('/weather/home', function(req, res){
 
 app.post('/weather/forecast', function(req, res){
 	var data = req.body;
-	console.log(data.city);
 	var bodyResp = '';
 
 	http.get("http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=" + data.city + "," + data.state, function(resp) {
@@ -34,7 +33,7 @@ app.post('/weather/forecast', function(req, res){
 
 		resp.on('end', function () {
 			var weatherJson = JSON.parse(bodyResp);
-			console.log(weatherJson);
+			//console.log(weatherJson);
 			//{ message: 'Error: Not found city', cod: '404' }
 			if( weatherJson.cod != 200 ){
 				res.send(weatherJson.message);
