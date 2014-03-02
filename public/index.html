@@ -1,0 +1,65 @@
+<html>
+	<meta>
+		<link href="/weather/style/bootstrap.css" rel="stylesheet">
+	  	<script src="/weather/javascript/jquery-1.9.1.min.js"></script>
+	  	<script src="/weather/javascript/moment.min.js"></script>
+	  	<style type="text/css">
+	  		.requiredErrorClass  { border: "1px red solid"} };
+	  		.requiredClass  { border: "1px #cccccc solid"} };
+	  	</style>
+		<script type="text/javascript">
+
+			function initializeRequiredFields(){
+				$( ":text" ).each(function(){
+						$(this).css({border: "1px solid #cccccc"});
+				});
+			}
+
+			$(function(){
+				$('#send').click(function(){  
+
+				var data = {};
+				data.city = $("#city").val();
+				data.state = $("#state").val();
+				//alert(JSON.stringify(data));
+				var requiredFieldFound = false;
+				$( ":text" ).each(function(){
+					if( $(this).val() == "" ){
+						requiredFieldFound = true;
+						$(this).css({border: "1px red solid"});
+						setTimeout( function(){initializeRequiredFields()}, 2000 );
+					}
+				});
+				if(requiredFieldFound){
+					return false;
+				}
+
+				$.ajax({ 
+				   url: '/weather/forecast',
+				   type: 'POST',
+				   cache: false, 
+				   data: JSON.stringify(data), 
+				   contentType: "application/json",
+				   success: function(data){
+				      //console.log(data);
+				      $('#response').html(data);
+				   }, 
+				   error: function(jqXHR, textStatus, err){
+				       alert('Error getting weather info '+textStatus+', err '+err)
+				   }
+				})
+				});
+			});   		
+		</script>
+	</meta>
+	<body>
+		<form name="form" method="get" onsubmit="return  false;">
+			<label for="city">City</label>
+			<p><input type="text" name="city" id="city"/></p>
+			<label for="state">State/Country</label>
+			<p><input type="text" name="state" id="state"></p>
+			<p><button name="button" id="send">Send</button></p>
+		</form>
+		<div id="response"></div>
+	</body>
+</html>
