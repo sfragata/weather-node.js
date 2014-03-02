@@ -4,7 +4,6 @@ var http = require('http');
 var app = express();
 
 
-//app.use(express.bodyParser());
 app.use(express.json());
 app.use(express.urlencoded());
 
@@ -14,8 +13,6 @@ app.use('/weather/', express.static(__dirname + '/public'));
 // New call to compress content
 app.use(express.compress());
 
-// Serve static files
-//app.use(express.static(path.join(__dirname, 'public'))); 
 
 app.get('/weather/home', function(req, res){
 	res.render('home.ejs', null);
@@ -24,6 +21,7 @@ app.get('/weather/home', function(req, res){
 
 app.post('/weather/forecast', function(req, res){
 	var data = req.body;
+	console.log(data.city);
 	var bodyResp = '';
 
 	http.get("http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=" + data.city + "," + data.state, function(resp) {
@@ -37,6 +35,7 @@ app.post('/weather/forecast', function(req, res){
 		resp.on('end', function () {
 			var weatherJson = JSON.parse(bodyResp);
 			console.log(weatherJson);
+			//{ message: 'Error: Not found city', cod: '404' }
 			if( weatherJson.cod != 200 ){
 				res.send(weatherJson.message);
 			} else {
@@ -50,7 +49,8 @@ app.post('/weather/forecast', function(req, res){
 
 // Route for everything else.
 app.get('*', function(req, res){
-  res.send('Hello World');
+  //res.send('Hello World');
+  res.redirect('/weather/index.html');
 });
 
 // Fire it up!

@@ -1,7 +1,69 @@
-<h1>Weather for <%= weather.name%>, <%= weather.sys.country%></h1>
+<h3><%= weather.name%>, <%= weather.sys.country%></h3>
+<h2> <img src="http://openweathermap.org/img/w/<%= weather.weather[0].icon %>"><%= weather.main.temp %> °C </h2>
+<%= weather.weather[0].description %> (<%= weather.weather[0].main %>)
+<p></p>
+<div id="date_m">last update at <span id="nowDate"><%= weather.dt%></span></div>
+<p></p>
+<div class="span4">
+	<table class="table table-striped table-bordered table-condensed">
+		<tbody>
+			<tr>
+				<td>Wind</td>
+				<td><%= weather.wind.speed %> m/s</td>
+			</tr>
+			<tr>
+				<td>Cloudiness</td>
+				<td><%= weather.clouds.all %> %</td>
+			</tr>
+			<tr>
+				<td>Pressure</td>
+				<td><%= weather.main.pressure %> hpa</td>
+			</tr>
+			<tr>
+				<td>Humidity</td>
+				<td><%= weather.main.humidity %> %</td>
+			</tr>
+			<tr>
+				<td>Minimum Temp</td>
+				<td><%= weather.main.temp_min %> °C</td>
+			</tr>
+			<tr>
+				<td>Maximum Temp</td>
+				<td><%= weather.main.temp_max %> °C</td>
+			</tr>
+			<% if(weather.rain || weather.snow){ %>
+			<tr>
+				<td><% if(weather.rain){ %>Rain<% } else { %>Snow<%}%></td>
+				<td>
+					<% if(weather.rain){ %>
+						<%= weather.rain['3h'] %>
+					<% } else if(weather.snow) { %>
+						<%= weather.snow['3h'] %> 
+					<% } %>
+					mm/3 hour
+				</td>
+			</tr>
+			<% } %>
+			<tr>
+				<td>Sunrise</td>
+				<td class="formatTime"><%= weather.sys.sunrise%></td>
+			</tr>
+			<tr>
+				<td>Sunset</td>
+				<td class="formatTime"><%= weather.sys.sunset%></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+		$(function(){
+		    $( ".formatTime" ).each(function(){
+		    	var time = moment.unix( parseInt($(this).html()) );
+		    	$(this).html(time.format("HH:mm:ss"));
+		    });
 
-<p><b>Main:</b> <%= weather.weather[0].main %></p><img src="http://openweathermap.org/img/w/03n" />
-<p><b>Descrition:</b> <%= weather.weather[0].description %></p>
-<p><b>Temp:</b> <%= weather.main.temp %> °C</p>
-<p><b>Temperature min:</b> <%= weather.main.temp_min %> °C</p>
-<p><b>Temperature max:</b> <%= weather.main.temp_max %> °C</p>
+	    	var date = moment.unix( parseInt($("#nowDate").html()) );
+	    	$("#nowDate").html(date.format("YYYY-MM-DD, HH:mm:ss"));
+		});
+
+</script>
