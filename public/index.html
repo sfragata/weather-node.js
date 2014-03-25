@@ -23,7 +23,6 @@
 				loaded();
 
 				$('#send').click(function(){  
-				loading();
 				var data = {};
 				data.city = $("#city").val();
 				data.state = $("#state").val();
@@ -39,6 +38,7 @@
 				if(requiredFieldFound){
 					return false;
 				}
+				loading();
 
 				$.ajax({ 
 				   url: '/weather/forecast',
