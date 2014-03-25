@@ -11,9 +11,19 @@
 				});
 			}
 
-			$(function(){
-				$('#send').click(function(){  
+			function loaded(){
+				$( "#loading" ).hide();
+			}
+			function loading(){
+				$('#response').html("");
+				$( "#loading" ).show(); 
+			}
 
+			$(function(){
+				loaded();
+
+				$('#send').click(function(){  
+				loading();
 				var data = {};
 				data.city = $("#city").val();
 				data.state = $("#state").val();
@@ -39,8 +49,10 @@
 				   success: function(data){
 				      //console.log(data);
 				      $('#response').html(data);
+				      loaded();
 				   }, 
 				   error: function(jqXHR, textStatus, err){
+				   	   loaded();
 				       alert('Error getting weather info '+textStatus+', err '+err)
 				   }
 				})
@@ -56,6 +68,7 @@
 			<p><input type="text" name="state" id="state"></p>
 			<p><button name="button" id="send">Send</button></p>
 		</form>
+		<img id="loading" src="/weather/images/loading.gif" alt="">
 		<div id="response"></div>
 	</body>
 </html>
