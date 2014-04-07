@@ -1,13 +1,18 @@
 <html>
 	<meta>
 		<link href="/weather/style/bootstrap.css" rel="stylesheet">
-	  	<script src="/weather/javascript/jquery-1.9.1.min.js"></script>
+		<link href="/weather/style/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+	  	<script src="/weather/javascript/jquery-1.10.2.js"></script>
+	  	<script src="/weather/javascript/jquery-ui-1.10.4.custom.min.js"></script>
 	  	<script src="/weather/javascript/moment.min.js"></script>
+	  	<style type="text/css">
+			.ui-autocomplete-loading { background:url('/weather/images/ui-anim_basic_16x16.gif') no-repeat right center }
+	  	</style>
 		<script type="text/javascript">
 
 			function initializeRequiredFields(){
 				$( ":text" ).each(function(){
-						$(this).css({border: "1px solid #cccccc"});
+					$(this).css({border: "1px solid #cccccc"});
 				});
 			}
 
@@ -20,52 +25,68 @@
 			}
 
 			$(function(){
+				$.ajaxSetup({ scriptCharset: "utf-8" , contentType: "application/json; charset=utf-8"});
 				loaded();
 
 				$('#send').click(function(){  
-				var data = {};
-				data.city = $("#city").val();
-				data.state = $("#state").val();
-				//alert(JSON.stringify(data));
-				var requiredFieldFound = false;
-				$( ":text" ).each(function(){
-					if( $(this).val() == "" ){
-						requiredFieldFound = true;
-						$(this).css({border: "1px red solid"});
-						setTimeout( function(){initializeRequiredFields()}, 2000 );
+					$('#response').html("");
+					var data = {};
+					data.city = $("#city").val();
+					//alert(JSON.stringify(data));
+					var requiredFieldFound = false;
+					$( ":text" ).each(function(){
+						if( $(this).val() == "" ){
+							requiredFieldFound = true;
+							$(this).css({border: "1px red solid"});
+							setTimeout( function(){initializeRequiredFields()}, 2000 );
+						}
+					});
+					if(requiredFieldFound){
+						return false;
+					}
+					loading();
+
+					$.ajax({ 
+					   url: '/weather/forecast',
+					   type: 'POST',
+					   cache: false, 
+					   data: JSON.stringify(data), 
+					   contentType: "application/json",
+					   success: function(data){
+					      //console.log(data);
+					      $('#response').html(data);
+					      loaded();
+					   }, 
+					   error: function(jqXHR, textStatus, err){
+					   	   loaded();
+					       alert('Error getting weather info '+textStatus+', err '+err)
+					   }
+					})
+				});
+
+
+				$("#city").autocomplete({
+					source: function (request, response){
+						$.getJSON("http://gd.geobytes.com/AutoCompleteCity?callback=?&q="+request.term,
+						function (data) {
+						 response(data);
+						});
+					},
+					minLength:3,
+					select: function (event, ui) {
+						 var selectedObj = ui.item;
+						 jQuery("#city").val(selectedObj.value);
+						 return false;
 					}
 				});
-				if(requiredFieldFound){
-					return false;
-				}
-				loading();
-
-				$.ajax({ 
-				   url: '/weather/forecast',
-				   type: 'POST',
-				   cache: false, 
-				   data: JSON.stringify(data), 
-				   contentType: "application/json",
-				   success: function(data){
-				      //console.log(data);
-				      $('#response').html(data);
-				      loaded();
-				   }, 
-				   error: function(jqXHR, textStatus, err){
-				   	   loaded();
-				       alert('Error getting weather info '+textStatus+', err '+err)
-				   }
-				})
-				});
+				$("#city").autocomplete("option", "delay", 100);
 			});   		
 		</script>
 	</meta>
 	<body>
-		<form name="form" method="get" onsubmit="return  false;">
-			<label for="city">City</label>
+		<form name="form" method="get" onsubmit="return false;">
+			<label for="city"><h2>City</h2></label>
 			<p><input type="text" name="city" id="city"/></p>
-			<label for="state">State/Country</label>
-			<p><input type="text" name="state" id="state"></p>
 			<p><button name="button" id="send">Send</button></p>
 		</form>
 		<img id="loading" src="/weather/images/loading.gif" alt="">

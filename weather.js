@@ -22,8 +22,8 @@ app.get('/weather/home', function(req, res){
 app.post('/weather/forecast', function(req, res){
 	var data = req.body;
 	var bodyResp = '';
-
-	http.get("http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=" + data.city + "," + data.state, function(resp) {
+	//console.log("data: " + data.city);
+	http.get("http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=" + data.city, function(resp) {
 		console.log("Got response: " + resp.statusCode);
 
 		resp.on("data", function(chunk){
