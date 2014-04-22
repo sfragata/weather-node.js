@@ -64,6 +64,8 @@
 
 	    	var date = moment.unix( parseInt($("#nowDate").html()) );
 	    	$("#nowDate").html(date.format("YYYY-MM-DD, HH:mm:ss"));
+
+	    	getmap(<%= weather.coord.lat%>,<%= weather.coord.lon%>,'<%= weather.name%>');
 		});
 
 </script>

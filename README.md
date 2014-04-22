@@ -8,3 +8,9 @@ Technologies
 - Node.js (express, ejs, http)
 - jQuery
 - Moment
+- Google maps api
+
+
+Important: To use google maps api, you must export the environment key [GOOGLE_API_KEY]
+Example:
+	export GOOGLE_API_KEY=<your google api key>

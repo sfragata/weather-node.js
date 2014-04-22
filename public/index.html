@@ -5,10 +5,27 @@
 	  	<script src="/weather/javascript/jquery-1.10.2.js"></script>
 	  	<script src="/weather/javascript/jquery-ui-1.10.4.custom.min.js"></script>
 	  	<script src="/weather/javascript/moment.min.js"></script>
+		<script type="text/javascript" src="/weather/googlemaps">
+		</script>	  	
 	  	<style type="text/css">
 			.ui-autocomplete-loading { background:url('/weather/images/ui-anim_basic_16x16.gif') no-repeat right center }
 	  	</style>
 		<script type="text/javascript">
+
+			function getmap(lat, lon, city) {
+			    var myLatlng = new google.maps.LatLng(lat,lon);
+			    var mapOptions = {
+			      center: myLatlng,
+			      zoom: 8
+			    };
+			    var map = new google.maps.Map($("#map-canvas")[0],
+			      mapOptions);
+			    var marker = new google.maps.Marker({
+				  position: myLatlng,
+				  map: map,
+				  title: city
+				});
+			  }
 
 			function initializeRequiredFields(){
 				$( ":text" ).each(function(){
@@ -21,6 +38,7 @@
 			}
 			function loading(){
 				$('#response').html("");
+				$('#map-canvas').html("");
 				$( "#loading" ).show(); 
 			}
 
@@ -30,6 +48,7 @@
 
 				$('#send').click(function(){  
 					$('#response').html("");
+					$('#map-canvas').html("");
 					var data = {};
 					data.city = $("#city").val();
 					//alert(JSON.stringify(data));
@@ -59,17 +78,36 @@
 					   }, 
 					   error: function(jqXHR, textStatus, err){
 					   	   loaded();
-					       alert('Error getting weather info '+textStatus+', err '+err)
+					   	   console.error('Error: status [%d], message [%s]', jqXHR.status, jqXHR.responseText);
+					   	   $('#response').html(jqXHR.responseText);
+						   $('#map-canvas').css("background-color", "");
 					   }
 					})
+				});
+
+				$("#city").focus(function(){
+					this.select();		
 				});
 
 
 				$("#city").autocomplete({
 					source: function (request, response){
-						$.getJSON("http://gd.geobytes.com/AutoCompleteCity?callback=?&q="+request.term,
-						function (data) {
-						 response(data);
+						//console.log(request);
+						data = {};
+						data.city = request.term;
+						$.ajax({
+					          url: "/weather/city/list",
+						   	  type: 'POST',
+					          data: JSON.stringify(data),
+					          success: function( data ) {
+					            response( $.map( data.cities, function( item ) {
+					            	//console.log("item: " + item);
+					              return {
+					                label: item,
+					                value: item
+					              }
+					            }));
+					          }
 						});
 					},
 					minLength:3,
@@ -78,9 +116,9 @@
 						 jQuery("#city").val(selectedObj.value);
 						 return false;
 					}
-				});
+				}).removeClass("ui-corner-all").addClass("ui-corner-top");
 				$("#city").autocomplete("option", "delay", 100);
-			});   		
+			});  			 		
 		</script>
 	</meta>
 	<body>
@@ -91,5 +129,6 @@
 		</form>
 		<img id="loading" src="/weather/images/loading.gif" alt="">
 		<div id="response"></div>
+		<div id="map-canvas" style="width:400px; height:300px;"></div>
 	</body>
 </html>
