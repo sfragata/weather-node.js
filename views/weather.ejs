@@ -1,5 +1,5 @@
 <h3><%= weather.name%>, <%= weather.sys.country%></h3>
-<h2> <img src="http://openweathermap.org/img/w/<%= weather.weather[0].icon %>"><%= weather.main.temp %> °C </h2>
+<h2> <img src="http://openweathermap.org/img/w/<%= weather.weather[0].icon %>.png"><%= weather.main.temp %> °C </h2>
 <%= weather.weather[0].description %> (<%= weather.weather[0].main %>)
 <p></p>
 <div id="date_m">last update at <span id="nowDate"><%= weather.dt%></span></div>
