@@ -13,28 +13,33 @@ app.use('/weather/', express.static(__dirname + '/public'));
 // New call to compress content
 app.use(express.compress());
 
-console.info("GOOGLE_API_KEY: " + process.env.GOOGLE_API_KEY);
+//console.log("GOOGLE_API_KEY: " + process.env.GOOGLE_API_KEY);
+if( process.env.GOOGLE_API_KEY = "" ){
+	console.log("There is no GOOGLE_API_KEY configured, so the map integration won't work");
+}
 
 app.post('/weather/forecast', function(req, res){
+	console.log("%s:host: %s[%s]", req.path,req.host, req.ip);
 	var data = req.body;
+	console.log("%s:request:city: %s", req.path, data.city);
 	var bodyResp = '';
 	//console.log("data: " + data.city);
 	http.get("http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=" + data.city, function(resp) {
-		console.log("Got response: " + resp.statusCode);
+		//console.log("%s:got response: %d" ,req.path,resp.statusCode);
 
 		if( resp.statusCode != 200 ){
-			console.log("logging error code %s", resp.statusCode);
+			console.error("%s:status code %s", resp.statusCode);
 			res.send(resp.statusCode);
 			return;
 		}
 
 		resp.on("data", function(chunk){
 			bodyResp += chunk;
-			console.log("got data...");
+			//console.log("%s:got data...", req.path);
 		});
 
 		resp.on('end', function () {
-			console.log('bodyResp: ' + bodyResp);
+			console.log('%s:reponse: %s', req.path, bodyResp);
 			var weatherJson = JSON.parse(bodyResp);
 			//console.log(weatherJson);
 			//{ message: 'Error: Not found city', cod: '404' }
@@ -45,21 +50,28 @@ app.post('/weather/forecast', function(req, res){
 			}
 		});
 	}).on('error', function(e) {
-		console.log("Got error: " + e.message);
+		console.log("%s:got error: %s", req.path, e.message);
 	});	
 });
 
 app.post('/weather/city/list',function(req, res){
+	console.log("%s:host: %s[%s]", req.path,req.host, req.ip);
 	var bodyResp = '';
 	var data = req.body;
-	console.log(data);
+	console.log("%s:request query: %s", req.path, data.city);
 	http.get("http://gd.geobytes.com/AutoCompleteCity?callback=?&q=" + data.city, function(resp) {
 		resp.setEncoding('utf8');
-		console.log("Got response: " + resp.statusCode);
+		//console.log("%s:got response: %d" ,req.path,resp.statusCode);
+
+		if( resp.statusCode != 200 ){
+			console.error("%s:status code %s", resp.statusCode);
+			res.send(resp.statusCode);
+			return;
+		}
 
 		resp.on("data", function(chunk){
 			bodyResp += chunk;
-			console.log("got data...");
+			//console.log("%s:got data...", req.path);
 		});
 
 		resp.on('end', function () {
@@ -70,10 +82,10 @@ app.post('/weather/city/list',function(req, res){
 			//console.log("resp: %s", bodyResp);
 			var respJson = JSON.parse(bodyResp);
 
-			res.send(200,respJson);
+			res.send(200, respJson);
 		});
 	}).on('error', function(e) {
-		console.log("Got error: " + e.message);
+		console.log("%s:got error: %s", req.path, e.message);
 		res.send(500, e.message);
 	});
 });
