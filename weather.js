@@ -19,16 +19,16 @@ if( process.env.GOOGLE_API_KEY = "" ){
 }
 
 app.post('/weather/forecast', function(req, res){
-	console.log("%s:host: %s[%s]", req.path,req.host, req.ip);
+	//console.log("%s:host: %s", req.path, req.ip);
 	var data = req.body;
-	console.log("%s:request:city: %s", req.path, data.city);
+	console.log("%s[%s]:request:city: %s", req.path, req.ip, data.city);
 	var bodyResp = '';
 	//console.log("data: " + data.city);
 	http.get("http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=" + data.city, function(resp) {
 		//console.log("%s:got response: %d" ,req.path,resp.statusCode);
 
 		if( resp.statusCode != 200 ){
-			console.error("%s:status code %s", resp.statusCode);
+			console.error("%s[%s]:status code %s", req.path, req.ip, resp.statusCode);
 			res.send(resp.statusCode);
 			return;
 		}
@@ -39,7 +39,7 @@ app.post('/weather/forecast', function(req, res){
 		});
 
 		resp.on('end', function () {
-			console.log('%s:reponse: %s', req.path, bodyResp);
+			console.log('%s[%s]:reponse: %s', req.path, req.ip, bodyResp);
 			var weatherJson = JSON.parse(bodyResp);
 			//console.log(weatherJson);
 			//{ message: 'Error: Not found city', cod: '404' }
@@ -50,21 +50,21 @@ app.post('/weather/forecast', function(req, res){
 			}
 		});
 	}).on('error', function(e) {
-		console.log("%s:got error: %s", req.path, e.message);
+		console.log("%s[%s]:got error: %s", req.path, req.ip, e.message);
 	});	
 });
 
 app.post('/weather/city/list',function(req, res){
-	console.log("%s:host: %s[%s]", req.path,req.host, req.ip);
+	//console.log("%s:host: %s[%s]", req.path,req.host, req.ip);
 	var bodyResp = '';
 	var data = req.body;
-	console.log("%s:request query: %s", req.path, data.city);
+	console.log("%s[%s]:request query: %s", req.path, req.ip, data.city);
 	http.get("http://gd.geobytes.com/AutoCompleteCity?callback=?&q=" + data.city, function(resp) {
 		resp.setEncoding('utf8');
 		//console.log("%s:got response: %d" ,req.path,resp.statusCode);
 
 		if( resp.statusCode != 200 ){
-			console.error("%s:status code %s", resp.statusCode);
+			console.error("%s[%s]:status code %s", req.path, req.ip, resp.statusCode);
 			res.send(resp.statusCode);
 			return;
 		}
@@ -85,7 +85,7 @@ app.post('/weather/city/list',function(req, res){
 			res.send(200, respJson);
 		});
 	}).on('error', function(e) {
-		console.log("%s:got error: %s", req.path, e.message);
+		console.log("%s[%s]:got error: %s", req.path, req.ip, e.message);
 		res.send(500, e.message);
 	});
 });
