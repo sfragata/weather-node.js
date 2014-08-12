@@ -61,7 +61,7 @@ app.post('/weather/forecast', function(req, res){
 				forecastLogger.error('response: %s', JSON.stringify(weatherJson));
 				res.status(weatherJson.cod).send(weatherJson.message);
 			} else {
-				forecastLogger.info('reponse: %s', bodyResp);
+				forecastLogger.info('response: %s', bodyResp);
 				res.render('weather.ejs', { weather: weatherJson });
 			}
 		});
