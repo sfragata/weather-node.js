@@ -9,6 +9,7 @@ Technologies
 - jQuery
 - Moment
 - Google maps api
+- Log4js
 
 
 Important: To use google maps api, you must export the environment key [GOOGLE_API_KEY]

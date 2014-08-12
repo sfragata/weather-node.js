@@ -6,7 +6,8 @@
   "dependencies" : {
     "express"   :  ">= 3.4.8",
     "ejs" :  ">= 0.8.5",
-    "http" :  "*"
+    "http" :  "*",
+    "log4js" : ">= 0.6.16"
   },
   "main": "weather.js"
 }
