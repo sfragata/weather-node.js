@@ -3,6 +3,8 @@ var express = require('express');
 var http = require('http');
 var app = express();
 var log4js = require('log4js');
+var bodyParser = require('body-parser');
+var compression = require('compression')
 
 //config
 log4js.configure({
@@ -17,19 +19,18 @@ log4js.configure({
 		}
 	]
 });
-//define defaultLogger
+//define logger
 var defaultLogger = log4js.getLogger("default");
 var forecastLogger = log4js.getLogger("/weather/forecast");
 var cityListLogger = log4js.getLogger("/weather/city/list");
 
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 
 app.set('views',__dirname + '/views');
 app.set('view engine', 'ejs');
 app.use('/weather/', express.static(__dirname + '/public'));
-// New call to compress content
-app.use(express.compress());
+app.use(compression());
 
 if( process.env.GOOGLE_API_KEY = "" ){
 	defaultLogger.warn("There is no GOOGLE_API_KEY configured, so the map integration won't work");
@@ -58,7 +59,7 @@ app.post('/weather/forecast', function(req, res){
 				//add city to the json's response error
 				weatherJson.city = data.city;
 				forecastLogger.error('response: %s', JSON.stringify(weatherJson));
-				res.send(weatherJson.cod, weatherJson.message);
+				res.status(weatherJson.cod).send(weatherJson.message);
 			} else {
 				forecastLogger.info('reponse: %s', bodyResp);
 				res.render('weather.ejs', { weather: weatherJson });
@@ -95,7 +96,7 @@ app.post('/weather/city/list',function(req, res){
 			//console.log("resp: %s", bodyResp);
 			var respJson = JSON.parse(bodyResp);
 
-			res.send(200, respJson);
+			res.status(200).send(respJson);
 		});
 	}).on('error', function(e) {
 		cityListLogger.error("got error: ", e);
