@@ -2,7 +2,7 @@
   "name": "Weather",
   "version": "0.0.1",
   "author": "Silvio Fragata Silva",
-  "description": "A weather consulting",
+  "description": "App that retrieves the forecast information",
   "dependencies" : {
     "express"   :  ">= 3.4.8",
     "ejs" :  ">= 0.8.5",
