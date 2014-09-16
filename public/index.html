@@ -12,21 +12,6 @@
 	  	</style>
 		<script type="text/javascript">
 
-			function getmap(lat, lon, city) {
-			    var myLatlng = new google.maps.LatLng(lat,lon);
-			    var mapOptions = {
-			      center: myLatlng,
-			      zoom: 8
-			    };
-			    var map = new google.maps.Map($("#map-canvas")[0],
-			      mapOptions);
-			    var marker = new google.maps.Marker({
-				  position: myLatlng,
-				  map: map,
-				  title: city
-				});
-			  }
-
 			function initializeRequiredFields(){
 				$( ":text" ).each(function(){
 					$(this).css({border: "1px solid #cccccc"});
@@ -45,45 +30,6 @@
 			$(function(){
 				$.ajaxSetup({ scriptCharset: "utf-8" , contentType: "application/json; charset=utf-8"});
 				loaded();
-
-				$('#send').click(function(){  
-					$('#response').html("");
-					$('#map-canvas').html("");
-					var data = {};
-					data.city = $("#city").val();
-					//alert(JSON.stringify(data));
-					var requiredFieldFound = false;
-					$( ":text" ).each(function(){
-						if( $(this).val() == "" ){
-							requiredFieldFound = true;
-							$(this).css({border: "1px red solid"});
-							setTimeout( function(){initializeRequiredFields()}, 2000 );
-						}
-					});
-					if(requiredFieldFound){
-						return false;
-					}
-					loading();
-
-					$.ajax({ 
-					   url: '/weather/forecast',
-					   type: 'POST',
-					   cache: false, 
-					   data: JSON.stringify(data), 
-					   contentType: "application/json",
-					   success: function(data){
-					      //console.log(data);
-					      $('#response').html(data);
-					      loaded();
-					   }, 
-					   error: function(jqXHR, textStatus, err){
-					   	   loaded();
-					   	   console.error('Error: status [%d], message [%s]', jqXHR.status, jqXHR.responseText);
-					   	   $('#response').html(jqXHR.responseText);
-						   $('#map-canvas').css("background-color", "");
-					   }
-					})
-				});
 
 				$("#city").focus(function(){
 					this.select();		
@@ -122,13 +68,72 @@
 		</script>
 	</meta>
 	<body>
-		<form name="form" method="get" onsubmit="return false;">
+		<form data-bind="submit: getForecast">
 			<label for="city"><h2>City</h2></label>
-			<p><input type="text" name="city" id="city"/></p>
-			<p><button name="button" id="send">Send</button></p>
+			<p><input data-bind="value: city, valueUpdate:'blur'" id="city"/></p>
+			<p><button type="submit">Send</button></p>
 		</form>
 		<img id="loading" src="/weather/images/loading.gif" alt="">
-		<div id="response"></div>
+		<div data-bind="with: forecast" id="response">
+			<h3><span data-bind="text: name"></span>, <span data-bind="text: sys.country"></span></h3>
+			<img data-bind="attr:{ src: 'http://openweathermap.org/img/w/' + weather[0].icon + '.png' }" />
+			<span data-bind="text: main.temp"></span>°C </h2>
+			<span data-bind="text: weather[0].description"></span>
+			(<span data-bind="text: weather[0].main"></span>)
+			<p></p>
+			last update at <span data-bind="text: dt"></span>
+			<p></p>
+			<div class="span4">
+				<table class="table table-striped table-bordered table-condensed">
+					<tbody>
+						<tr>
+							<td>Wind</td>
+				 			<td> <span data-bind="text: wind.speed"></span> m/s</td>
+						</tr>
+						<tr>
+							<td>Cloudiness</td>
+							<td> <span data-bind="text: clouds.all"></span> %</td>
+						</tr>
+						<tr>
+							<td>Pressure</td>
+							<td> <span data-bind="text: main.pressure"></span> hpa</td>
+						</tr>
+						<tr>
+							<td>Humidity</td>
+							<td><span data-bind="text: main.humidity"></span> %</td>
+						</tr>
+						<tr>
+							<td>Minimum Temp</td>
+							<td><span data-bind="text: main.temp_min"></span> °C</td>
+						</tr>
+						<tr>
+							<td>Maximum Temp</td>
+							<td><span data-bind="text: main.temp_max"></span> °C</td>
+						</tr>
+<!--  						<tr>
+							<td>Rain (mm/3 hour)</td>
+							<td data-bind="text: rain['3h']"></td>
+						</tr>
+ -->
+ <!-- 						<tr>
+							<td>Snow (mm/3 hour)</td>
+							<td data-bind="text: snow['3h']"></td>
+						</tr>
+ -->						<tr>
+							<td>Sunrise</td>
+							<td data-bind="text: sys.sunrise"></td>
+						</tr>
+						<tr>
+							<td>Sunset</td>
+							<td data-bind="text: sys.sunset"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>				
+		</div>
 		<div id="map-canvas" style="width:400px; height:300px;"></div>
+	  	<script src="/weather/javascript/knockout-3.2.0.js"></script>
+	  	<script src="/weather/javascript/forecast_mvvm.js"></script>
+		<script src="/weather/javascript/map_mvvm.js"></script>
 	</body>
 </html>

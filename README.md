@@ -7,9 +7,10 @@ Technologies
 
 - Node.js (express, ejs, http)
 - jQuery
-- Moment
+- Moment js
 - Google maps api
 - Log4js
+- knockoutjs
 
 
 Important: To use google maps api, you must export the environment key [GOOGLE_API_KEY]

@@ -31,7 +31,8 @@ exports.retrieve = function(req, res){
 				res.status(weatherJson.cod).send(weatherJson.message);
 			} else {
 				forecastLogger.info('response: %s', bodyResp);
-				res.render('weather.ejs', { weather: weatherJson });
+				//res.render('weather.ejs', { weather: weatherJson });
+				res.status(200).send(weatherJson);
 			}
 		});
 	}).on('error', function(e) {
