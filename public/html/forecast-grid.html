@@ -1,0 +1,52 @@
+<div ng-show="weatherCtrl.cityForecast.name">
+	<!-- {{weatherCtrl.cityForecast}}-->
+	<h3><span>{{weatherCtrl.cityForecast.name}}</span>, <span>{{weatherCtrl.cityForecast.sys.country}}</span></h3>
+	<img ng-src="{{weatherCtrl.cityForecast.weather[0].icon}}" />
+	<span>{{weatherCtrl.cityForecast.main.temp}}</span>°C </h2>
+	<span>{{weatherCtrl.cityForecast.sys.countryweather[0].description}}</span>
+	(<span>{{weatherCtrl.cityForecast.weather[0].main}}</span>)
+	<p></p>
+	last update at <span>{{weatherCtrl.cityForecast.dt}}</span>
+	<p></p>
+	<section>
+		<div class="span4 div-left">
+			<table class="table table-striped table-bordered table-condensed">
+				<tbody>
+					<tr>
+						<td>Wind</td>
+			 			<td> <span>{{weatherCtrl.cityForecast.wind.speed}}</span> m/s</td>
+					</tr>
+					<tr>
+						<td>Cloudiness</td>
+						<td> <span>{{weatherCtrl.cityForecast.clouds.all}}</span> %</td>
+					</tr>
+					<tr>
+						<td>Pressure</td>
+						<td> <span>{{weatherCtrl.cityForecast.main.pressure}}</span> hpa</td>
+					</tr>
+					<tr>
+						<td>Humidity</td>
+						<td><span>{{weatherCtrl.cityForecast.main.humidity}}</span> %</td>
+					</tr>
+					<tr>
+						<td>Minimum Temp</td>
+						<td><span>{{weatherCtrl.cityForecast.main.temp_min}}</span> °C</td>
+					</tr>
+					<tr>
+						<td>Maximum Temp</td>
+						<td><span>{{weatherCtrl.cityForecast.main.temp_max}}</span> °C</td>
+					</tr>
+					<tr>
+						<td>Sunrise</td>
+						<td>{{weatherCtrl.cityForecast.sys.sunrise}}</td>
+					</tr>
+					<tr>
+						<td>Sunset</td>
+						<td>{{weatherCtrl.cityForecast.sys.sunset}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="map-canvas" style="width:400px; height:300px;" class="div-right"></div>
+	</section>
+</div>
