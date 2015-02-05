@@ -36,7 +36,7 @@ app.set('view engine', 'ejs');
 app.use('/weather/', express.static(__dirname + '/public'));
 app.use(compression());
 
-
+//test
 if( process.env.GOOGLE_API_KEY = "" ){
 	defaultLogger.warn("There is no GOOGLE_API_KEY configured, so the map integration won't work");
 }
