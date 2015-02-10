@@ -10,7 +10,7 @@ Technologies
 - Moment js
 - Google maps api
 - Log4js
-- knockoutjs
+- Angularjs
 
 
 Important: To use google maps api, you must export the environment key [GOOGLE_API_KEY]

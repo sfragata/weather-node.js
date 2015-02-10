@@ -1,0 +1,16 @@
+section {
+    width: 100%;
+    height: 300px;
+    margin: auto;
+    padding: 1px;
+}
+div.div-left {
+    width: 35%;
+    float: left;
+}
+div.div-right {
+    margin-left: 15%;
+}
+.ui-autocomplete-loading { 
+	background:url('/weather/images/ui-anim_basic_16x16.gif') no-repeat right center 
+}
