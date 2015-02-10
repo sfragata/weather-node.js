@@ -1,12 +1,16 @@
 <html ng-app="weatherApp">
 	<meta>
+	    <script type="text/javascript" src="/weather/javascript/jquery-1.10.2.js"></script>
+	    <script type="text/javascript" src="/weather/javascript/jquery-ui-1.10.4.custom.min.js"></script>
 	    <script type="text/javascript" src="/weather/javascript/angular.min.js"></script>
 		<script type="text/javascript" src="/weather/googlemaps"></script>
 	    <script type="text/javascript" src="/weather/javascript/weather-angular.js"></script>
 	    <script type="text/javascript" src="/weather/javascript/weather-controller.js"></script>
 	    <script type="text/javascript" src="/weather/javascript/forecast-controller.js"></script>
 	    <script type="text/javascript" src="/weather/javascript/forecast-directive.js"></script>
+	    <script type="text/javascript" src="/weather/javascript/city-autocomplete-directive.js"></script>
 	    <script type="text/javascript" src="/weather/javascript/moment.min.js"></script>
+	    <link href="/weather/style/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
 	    <link rel="stylesheet" type="text/css" href="/weather/style/bootstrap.min.css" />
 	    <link rel="stylesheet" type="text/css" href="/weather/style/weather.css" />
 	</meta>
@@ -16,9 +20,12 @@
 					ng-submit="forecastForm.$valid && forecastCtrl.getForecast(weatherCtrl.cityForecast)">
 				<label for="city"><h2>City</h2></label>
 				<fieldset class="form-group">
-					<input ng-model="forecastCtrl.city" class="form-control" placeholder="enter a City" title="City" required/>
+					<input ng-model="forecastCtrl.city" class="form-control" placeholder="enter a City" title="City" required auto-complete/>
 				</fieldset>
-				<!--<div>forecastForm is {{forecastForm.$valid}}</div>-->
+				<!--
+				[{{forecastCtrl.city}}]
+				<div>forecastForm is {{forecastForm.$valid}}</div>
+				-->
 				<fieldset class="form-group">
 					<input type="submit" class="btn btn-primary pull-right" value="Send" />
 				</fieldset>

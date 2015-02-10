@@ -11,3 +11,6 @@ div.div-left {
 div.div-right {
     margin-left: 15%;
 }
+.ui-autocomplete-loading { 
+	background:url('/weather/images/ui-anim_basic_16x16.gif') no-repeat right center 
+}
