@@ -28,7 +28,7 @@
         }).
         error(function(data, status, headers, config) {
           console.error('data:' + data);
-          cityForecast.name = "";
+          cityForecast.coord = "";
           cityForecast.error = data;
           // console.error('headers:' + headers);
           // console.error('config:' + config);
