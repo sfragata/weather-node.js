@@ -1,12 +1,12 @@
-<div ng-show="weatherCtrl.cityForecast.name">
-	<!-- {{weatherCtrl.cityForecast}}-->
+<div ng-show="weatherCtrl.cityForecast.coord">
+	<!-- {{weatherCtrl.cityForecast}} -->
 	<h3><span>{{weatherCtrl.cityForecast.name}}</span>, <span>{{weatherCtrl.cityForecast.sys.country}}</span></h3>
-	<img ng-src="{{weatherCtrl.cityForecast.weather[0].icon}}" />
+	<img ng-src="http://openweathermap.org/img/w/{{weatherCtrl.cityForecast.weather[0].icon}}.png" />
 	<span>{{weatherCtrl.cityForecast.main.temp}}</span>°C </h2>
-	<span>{{weatherCtrl.cityForecast.sys.countryweather[0].description}}</span>
+	<span>{{weatherCtrl.cityForecast.weather[0].description}}</span>
 	(<span>{{weatherCtrl.cityForecast.weather[0].main}}</span>)
 	<p></p>
-	last update at <span>{{weatherCtrl.cityForecast.dt}}</span>
+	last update at <span>{{weatherCtrl.cityForecast.dt * 1000 | date:'yyyy-MM-dd HH:mm:ss'}}</span>
 	<p></p>
 	<section>
 		<div class="span4 div-left">
@@ -24,6 +24,14 @@
 						<td>Pressure</td>
 						<td> <span>{{weatherCtrl.cityForecast.main.pressure}}</span> hpa</td>
 					</tr>
+					<tr ng-show="weatherCtrl.cityForecast.main.sea_level">
+						<td>Sea Level</td>
+						<td> <span>{{weatherCtrl.cityForecast.main.sea_level}}</span> hpa</td>
+					</tr>
+					<tr ng-show="weatherCtrl.cityForecast.main.grnd_level">
+						<td>Ground Level</td>
+						<td> <span>{{weatherCtrl.cityForecast.main.grnd_level}}</span> hpa</td>
+					</tr>
 					<tr>
 						<td>Humidity</td>
 						<td><span>{{weatherCtrl.cityForecast.main.humidity}}</span> %</td>
@@ -38,15 +46,23 @@
 					</tr>
 					<tr>
 						<td>Sunrise</td>
-						<td>{{weatherCtrl.cityForecast.sys.sunrise}}</td>
+						<td>{{weatherCtrl.cityForecast.sys.sunrise * 1000 | date:'HH:mm:ss'}}</td>
 					</tr>
 					<tr>
 						<td>Sunset</td>
-						<td>{{weatherCtrl.cityForecast.sys.sunset}}</td>
+						<td>{{weatherCtrl.cityForecast.sys.sunset * 1000 | date:'HH:mm:ss'}}</td>
+					</tr>
+					<tr ng-show="weatherCtrl.cityForecast.rain">
+						<td>Rain</td>
+						<td>{{weatherCtrl.cityForecast.rain.3h}} (mm/3 hour)</td>
+					</tr>
+					<tr ng-show="weatherCtrl.cityForecast.snow">
+						<td>Snow</td>
+						<td>{{weatherCtrl.cityForecast.snow.3h}} (mm/3 hour)</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div id="map-canvas" style="width:400px; height:300px;" class="div-right"></div>
+		<div id="map-canvas" style="width:400px; height:350px;" class="div-right"></div>
 	</section>
 </div>
