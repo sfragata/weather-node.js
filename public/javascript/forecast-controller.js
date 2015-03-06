@@ -17,12 +17,24 @@
               center: myLatlng,
               zoom: 8
           };
+
+          var contentString = cityForecast.main.temp + '°C ' + cityForecast.weather[0].description + 
+          ' ('+ cityForecast.weather[0].main + ')';
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          
           var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
           var marker = new google.maps.Marker({
               position: myLatlng,
               map: map,
               title: cityForecast.name
           });           
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map,marker);
+          });
           //
 
         }).
