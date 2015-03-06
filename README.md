@@ -5,9 +5,10 @@ to retrieve the cities list (autocomplete) and from http://openweathermap.org to
 
 Technologies
 
-- Node.js (express, ejs, http)
-- jQuery
-- Google maps api
-- Log4js
-- Angularjs
-- scriptjs
+- Node.js (http://nodejs.org)
+- expressjs (http://expressjs.com)
+- jQuery (http://jquery.com)
+- Google maps api (https://developers.google.com/maps/documentation/javascript/)
+- Log4js (https://github.com/nomiddlename/log4js-node)
+- Angularjs (https://angularjs.org)
+- scriptjs (http://dustindiaz.com/scriptjs)
