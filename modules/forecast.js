@@ -13,7 +13,7 @@ exports.retrieve = function(req, res){
 
 		if( httpResponse.statusCode != 200 ){
 			forecastLogger.error("status code %s", httpResponse.statusCode);
-			res.send(httpResponse.statusCode);
+			res.sendStatus(httpResponse.statusCode);
 			return;
 		}
 

@@ -14,7 +14,7 @@ exports.list = function(req, res){
 
 		if( httpResponse.statusCode != 200 ){
 			cityListLogger.error("status code %s", httpResponse.statusCode);
-			res.send(httpResponse.statusCode);
+			res.sendStatus(httpResponse.statusCode);
 			return;
 		}
 
@@ -35,6 +35,6 @@ exports.list = function(req, res){
 		});
 	}).on('error', function(e) {
 		cityListLogger.error("got error: ", e);
-		res.send(500, e.message);
+		res.sendStatus(500, e.message);
 	});
 };
