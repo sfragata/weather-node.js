@@ -3,7 +3,13 @@ var log4js = require('log4js');
 
 var forecastLogger = log4js.getLogger("/weather/forecast");
 
-var url = "http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric&q=";
+var url = "http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric";
+if( process.env.OPEN_WEATHER_API_KEY != undefined ){
+	url+="&appid=" + process.env.OPEN_WEATHER_API_KEY;
+} else {
+	forecastLogger.error("key 'OPEN_WEATHER_API_KEY' undefined");
+}
+url += "&q=";
 
 exports.retrieve = function(req, res){
 	var data = req.body;
