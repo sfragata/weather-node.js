@@ -3,6 +3,12 @@ Weather-node.js
 Simple node.js web application that extract json information from http://www.geobytes.com/free-ajax-cities-jsonp-api.htm
 to retrieve the cities list (to autocomplete) and from http://openweathermap.org to show the forecast.
 
+To start to use you must create a API key from http://openweathermap.org and add it to the env
+
+```
+export OPEN_WEATHER_API_KEY=<your key here>
+```
+
 Technologies
 
 - Node.js (http://nodejs.org)
