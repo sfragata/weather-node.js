@@ -5,11 +5,14 @@
   "description": "App that retrieves the forecast information",
   "dependencies" : {
     "express"   :  ">= 3.4.8",
-    "ejs" :  ">= 0.8.5",
+    "ejs" :  "= 0.8.5",
     "http" :  "*",
-    "log4js" : ">= 0.6.16",
-    "body-parser" : ">= 1.6.3",
-    "compression" : ">= 1.0.11"
+    "log4js" : "= 0.6.16",
+    "body-parser" : "= 1.6.3",
+    "compression" : "= 1.0.11"
   },
-  "main": "weather.js"
+  "main": "weather.js",
+  "scripts": {
+    "test": "mocha"
+  }
 }
