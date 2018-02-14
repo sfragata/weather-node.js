@@ -12,7 +12,6 @@ $script.ready('angular', function(){
 		angular.bootstrap(document, ['weatherApp']); 
 		$script.get('/weather/googlemaps', function(){ 
 		//$script.get('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=$', function(){ 
-			alert('google');
 		});
 	});
 });
