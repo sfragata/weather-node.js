@@ -36,9 +36,9 @@ app.set('view engine', 'ejs');
 app.use('/weather/', express.static(__dirname + '/public'));
 app.use(compression());
 
-// if( process.env.GOOGLE_API_KEY == undefined ){
-// 	defaultLogger.warn("There is no GOOGLE_API_KEY configured, so the map integration won't work");
-// }
+if( process.env.GOOGLE_API_KEY == undefined ){
+ 	defaultLogger.warn("There is no GOOGLE_API_KEY configured, so the map integration won't work");
+}
 
 //route to autocomplete list city
 app.post('/weather/city/list', cities.list);
@@ -48,10 +48,10 @@ app.post('/weather/forecast', forecast.retrieve);
 
 
 //route to google maps api
-// app.get('/weather/googlemaps', function(req, res){
-// 	res.set('Content-Type', 'application/javascript');
-// 	res.redirect('https://maps.googleapis.com/maps/api/js?key=' + process.env.GOOGLE_API_KEY +  '&sensor=false');
-// });
+app.get('/weather/googlemaps', function(req, res){
+	res.set('Content-Type', 'application/javascript');
+	res.redirect('https://maps.googleapis.com/maps/api/js?key=' + process.env.GOOGLE_API_KEY +  '&callback=$');
+});
 
 // Route for everything else.
 app.get('*', function(req, res){
