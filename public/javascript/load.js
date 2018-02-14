@@ -10,6 +10,9 @@ $script.ready('angular', function(){
 
 	$script.ready('weather-bundle', function() {
 		angular.bootstrap(document, ['weatherApp']); 
-		$script.get('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=$', function(){});
+		$script.get('/weather/googlemaps', function(){ 
+		//$script.get('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=$', function(){ 
+			alert('google');
+		});
 	});
 });
