@@ -32,7 +32,6 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.set('views',__dirname + '/views');
 app.set('view engine', 'ejs');
 app.use('/weather/', express.static(__dirname + '/public'));
-//app.use(express.static(path.join(__dirname, 'public')))
 app.use(compression());
 
 if( process.env.GOOGLE_API_KEY == undefined ){
