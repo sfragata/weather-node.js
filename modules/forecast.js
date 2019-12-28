@@ -1,17 +1,19 @@
 var http = require('http');
 var log4js = require('log4js');
 
-var forecastLogger = log4js.getLogger("/weather/forecast");
+var forecastLogger = log4js.getLogger("forecast");
 
 var url = "http://api.openweathermap.org/data/2.5/weather?mode=json&units=metric";
-if( process.env.OPEN_WEATHER_API_KEY != undefined ){
-	url+="&appid=" + process.env.OPEN_WEATHER_API_KEY;
+
+if( process.env.OPEN_WEATHER_API_KEY == undefined ){
+	forecastLogger.error("key 'OPEN_WEATHER_API_KEY' is undefined");
 } else {
-	forecastLogger.error("key 'OPEN_WEATHER_API_KEY' undefined");
+	url+="&appid=" + process.env.OPEN_WEATHER_API_KEY;
 }
 url += "&q=";
 
 exports.retrieve = function(req, res){
+
 	var data = req.body;
 	forecastLogger.info("request city: %s", data.city);
 	var bodyResp = '';
@@ -43,5 +45,5 @@ exports.retrieve = function(req, res){
 		});
 	}).on('error', function(e) {
 		forecastLogger.error("got error: ", e);
-	});	
+	});
 };
