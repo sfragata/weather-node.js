@@ -58,7 +58,6 @@ app.get('*', function(req, res){
 });
 
 // Fire it up!
-//app.listen(process.env.PORT || 3000);
 var server = http.createServer(app)
 
 server.listen(app.get('port'), function () {
