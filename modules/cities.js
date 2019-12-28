@@ -1,7 +1,7 @@
 var http = require('http');
 var log4js = require('log4js');
 
-var cityListLogger = log4js.getLogger("/weather/city/list");
+var cityListLogger = log4js.getLogger("cities");
 
 var url = "http://gd.geobytes.com/AutoCompleteCity?callback=?&q=";
 
