@@ -1,6 +1,6 @@
-FROM node:6.12.3-alpine
+FROM node:14.12.0-alpine3.12
 
-MAINTAINER Silvio Fragata da Silva "sfragata@gmail.com"
+LABEL Silvio Fragata da Silva "sfragata@gmail.com"
 
 WORKDIR /weather
 

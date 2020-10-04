@@ -13,7 +13,7 @@ env:
   - COMMIT=${TRAVIS_COMMIT::7}
 
 node_js:
-  - '12'
+  - '14'
 before_install:
   - npm install mocha
 
