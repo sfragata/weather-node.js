@@ -7,7 +7,7 @@
     "express": ">= 4.17.1",
     "ejs": ">= 3.0.1",
     "http": "*",
-    "log4js": "= 6.1.0",
+    "log4js": "= 6.4.0",
     "body-parser": "= 1.19.0",
     "compression": "= 1.7.4"
   },
