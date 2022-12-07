@@ -5,7 +5,7 @@
   "description": "App that retrieves the forecast information",
   "dependencies": {
     "express": ">= 4.18.2",
-    "ejs": ">= 3.0.1",
+    "ejs": ">= 3.1.7",
     "http": "*",
     "log4js": "= 6.4.0",
     "body-parser": "= 1.20.1",
