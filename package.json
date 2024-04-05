@@ -4,7 +4,7 @@
   "author": "Silvio Fragata Silva",
   "description": "App that retrieves the forecast information",
   "dependencies": {
-    "express": ">= 4.18.2",
+    "express": ">= 4.19.2",
     "ejs": ">= 3.1.7",
     "http": "*",
     "log4js": "= 6.4.0",
