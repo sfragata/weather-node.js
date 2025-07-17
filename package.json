@@ -9,7 +9,7 @@
     "http": "*",
     "log4js": "= 6.4.0",
     "body-parser": "= 1.20.3",
-    "compression": "= 1.7.4"
+    "compression": "= 1.8.1"
   },
   "main": "weather.js",
   "scripts": {
