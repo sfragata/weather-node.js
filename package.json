@@ -12,7 +12,7 @@
     "chai": "^4.5.0",
     "eslint": "^9.23.0",
     "eslint-plugin-security": "^3.0.1",
-    "mocha": "^10.8.2",
+    "mocha": "^11.7.5",
     "sinon": "^21.0.3",
     "supertest": "^7.1.0"
   },
@@ -22,9 +22,12 @@
     "lint": "eslint weather.js modules/",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha test/unit/**/*.test.js --timeout 5000",
-    "test:integration": "mocha test/integration/**/*.test.js --timeout 10000"
+    "test:integration": "mocha test/integration/**/*.test.js --timeout 10000 --exit"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "overrides": {
+    "glob": "^13.0.6"
   }
 }

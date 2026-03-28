@@ -51,6 +51,8 @@ app.get('/{*splat}', function (req, res) {
 });
 
 // Fire it up!
-app.listen(app.get('port'), function () {
-  defaultLogger.info('Express server listening on port %d', app.get('port'));
-});
+if (require.main === module) {
+  app.listen(app.get('port'), function () {
+    defaultLogger.info('Express server listening on port %d', app.get('port'));
+  });
+}
