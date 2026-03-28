@@ -42,7 +42,7 @@ app.post('/weather/forecast', forecast.retrieve);
 //route to google maps api
 app.get('/weather/googlemaps', function (req, res) {
   res.set('Content-Type', 'application/javascript');
-  res.redirect('https://maps.googleapis.com/maps/api/js?key=' + process.env.GOOGLE_API_KEY + '&callback=$');
+  res.redirect('https://maps.googleapis.com/maps/api/js?key=' + process.env.GOOGLE_API_KEY);
 });
 
 // Route for everything else. Note: Express 5 requires /{*splat} instead of * for wildcards.
