@@ -6,23 +6,36 @@
   "dependencies": {
     "compression": "^1.8.1",
     "express": "^5.2.1",
-    "log4js": "^6.4.0"
+    "log4js": "^6.4.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-react": "^7.28.5",
+    "@playwright/test": "^1.58.2",
+    "babel-loader": "^10.1.1",
     "chai": "^4.5.0",
+    "css-loader": "^7.1.4",
     "eslint": "^9.23.0",
     "eslint-plugin-security": "^3.0.1",
     "mocha": "^11.7.5",
     "sinon": "^21.0.3",
-    "supertest": "^7.1.0"
+    "style-loader": "^4.0.0",
+    "supertest": "^7.1.0",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.2"
   },
   "main": "weather.js",
   "scripts": {
     "start": "node weather.js",
-    "lint": "eslint weather.js modules/",
+    "build": "webpack --config webpack.config.js",
+    "lint": "eslint weather.js modules/ src/",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha test/unit/**/*.test.js --timeout 5000",
-    "test:integration": "mocha test/integration/**/*.test.js --timeout 10000 --exit"
+    "test:integration": "mocha test/integration/**/*.test.js --timeout 10000 --exit",
+    "test:e2e": "npx playwright test"
   },
   "engines": {
     "node": ">=20.0.0"

@@ -1,43 +1,16 @@
 <!DOCTYPE html>
-<html ng-app="weatherApp">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<title>Weather App</title>
 		<!-- Bootstrap 3.4.1 -->
 		<link rel="stylesheet" href="/weather/lib/css/bootstrap.min.css">
-		<!-- jQuery UI 1.14.1 -->
-		<link rel="stylesheet" href="/weather/lib/css/jquery-ui.min.css">
 		<link rel="stylesheet" href="/weather/style/weather.css">
-		<!-- jQuery 3.7.1 -->
-		<script src="/weather/lib/js/jquery.min.js"></script>
-		<!-- jQuery UI 1.14.1 -->
-		<script src="/weather/lib/js/jquery-ui.min.js"></script>
-		<!-- AngularJS 1.8.3 -->
-		<script src="/weather/lib/js/angular.min.js"></script>
-		<!-- App -->
-		<script src="/weather/javascript/weather-angular.js"></script>
-		<script src="/weather/javascript/weather-controller.js"></script>
-		<script src="/weather/javascript/forecast-controller.js"></script>
-		<script src="/weather/javascript/forecast-directive.js"></script>
-		<script src="/weather/javascript/city-autocomplete-directive.js"></script>
-		<script src="/weather/javascript/load.js"></script>
 	</head>
-	<body ng-controller="WeatherController as weatherCtrl">
-		<div style="width: 400px">
-			<form novalidate name="forecastForm" ng-controller="ForecastController as forecastCtrl"
-					ng-submit="forecastCtrl.getForecast(weatherCtrl.cityForecast)">
-				<label for="city"><h2>City</h2></label>
-				<fieldset class="form-group">
-					<input ng-model="forecastCtrl.city" class="form-control" placeholder="enter a City" title="City" required auto-complete/>
-				</fieldset>
-				<fieldset class="form-group">
-					<input type="submit" class="btn btn-primary pull-right" ng-disabled="forecastForm.$invalid" value="Send" />
-				</fieldset>
-			</form>
-		</div>
-		<div ng-show="weatherCtrl.cityForecast.error" style="color:red">
-			{{weatherCtrl.cityForecast.error}}
-		</div>
-		<forecast-grid></forecast-grid>
+	<body>
+		<div id="app"></div>
+		<!-- React App -->
+		<script src="/weather/javascript/bundle.js"></script>
+		<script src="/weather/javascript/load.js"></script>
 	</body>
 </html>

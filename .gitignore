@@ -7,3 +7,7 @@ public/images/.DS_Store
 test-results/
 coverage/
 *.log
+public/javascript/bundle.js
+public/javascript/bundle.js.LICENSE.txt
+playwright-report/
+test/e2e/screenshots/
