@@ -21,14 +21,13 @@
 		                        method: 'POST',
 		                        data: JSON.stringify(dataCity)
 		                    })
-		                    .success(function (data) {
-								response( $.map( data.cities, function( item ) {
-								  // console.log("item: " + item);
+		                    .then(function (result) {
+								response( $.map( result.data.cities, function( item ) {
 								  return {
 								    label: item,
 								    value: item
-								  }
-								}));	                    	
+								  };
+								}));
 		                    });
 		                },
 
