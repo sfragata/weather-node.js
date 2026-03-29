@@ -15,7 +15,8 @@
           var myLatlng = new google.maps.LatLng(cityForecast.coord.lat, cityForecast.coord.lon);
           var mapOptions = {
               center: myLatlng,
-              zoom: 8
+              zoom: 8,
+              mapId: 'DEMO_MAP_ID'
           };
 
           var contentString = cityForecast.main.temp + '°C ' + cityForecast.weather[0].description +
@@ -26,14 +27,14 @@
           });
 
           var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-          var marker = new google.maps.Marker({
+          var marker = new google.maps.marker.AdvancedMarkerElement({
               position: myLatlng,
               map: map,
               title: cityForecast.name
           });
 
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map,marker);
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
           });
         },
         function(response) {
