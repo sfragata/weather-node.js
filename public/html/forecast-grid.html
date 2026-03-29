@@ -54,11 +54,11 @@
 					</tr>
 					<tr ng-show="weatherCtrl.cityForecast.rain">
 						<td>Rain</td>
-						<td>{{weatherCtrl.cityForecast.rain.3h}} (mm/3 hour)</td>
+						<td>{{weatherCtrl.cityForecast.rain['3h']}} (mm/3 hour)</td>
 					</tr>
 					<tr ng-show="weatherCtrl.cityForecast.snow">
 						<td>Snow</td>
-						<td>{{weatherCtrl.cityForecast.snow.3h}} (mm/3 hour)</td>
+						<td>{{weatherCtrl.cityForecast.snow['3h']}} (mm/3 hour)</td>
 					</tr>
 				</tbody>
 			</table>
