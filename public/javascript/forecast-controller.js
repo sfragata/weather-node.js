@@ -34,7 +34,7 @@
           });
 
           marker.addListener('click', function() {
-            infowindow.open(map, marker);
+            infowindow.open({anchor: marker, map});
           });
         },
         function(response) {
