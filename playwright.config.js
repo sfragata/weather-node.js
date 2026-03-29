@@ -6,7 +6,7 @@ module.exports = defineConfig({
   retries: 0,
   use: {
     baseURL: 'http://localhost:3000',
-    screenshot: 'on',
+    screenshot: 'only-on-failure',
   },
   projects: [
     {
@@ -17,7 +17,7 @@ module.exports = defineConfig({
   webServer: {
     command: 'node weather.js',
     port: 3000,
-    reuseExistingServer: false,
+    reuseExistingServer: true,
   },
   reporter: [['html', { open: 'never' }]],
   outputDir: 'test/e2e/screenshots',

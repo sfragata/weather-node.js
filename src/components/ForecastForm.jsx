@@ -6,6 +6,9 @@ var useRef = React.useRef;
 var useEffect = React.useEffect;
 var useCallback = React.useCallback;
 
+var AUTOCOMPLETE_DEBOUNCE_MS = 300;
+var MAP_RENDER_DELAY_MS = 100;
+
 function ForecastForm(props) {
   var cityState = useState('');
   var city = cityState[0];
@@ -56,7 +59,7 @@ function ForecastForm(props) {
     if (value.length >= 3) {
       debounceRef.current = setTimeout(function () {
         fetchCities(value);
-      }, 300);
+      }, AUTOCOMPLETE_DEBOUNCE_MS);
     } else {
       setSuggestions([]);
       setShowSuggestions(false);
@@ -117,7 +120,8 @@ function ForecastForm(props) {
         setShowSuggestions(false);
 
         if (data.coord && typeof google !== 'undefined') {
-          setTimeout(function () { renderMap(data); }, 100);
+          // Delay to ensure the DOM element is rendered before initializing the map
+          setTimeout(function () { renderMap(data); }, MAP_RENDER_DELAY_MS);
         }
       })
       .catch(function (err) {
