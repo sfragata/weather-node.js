@@ -3,7 +3,7 @@ FROM node:22-alpine AS build
 WORKDIR /weather
 
 COPY package*.json /weather/
-RUN npm ci
+RUN npm install && npm ci
 
 COPY webpack.config.js /weather/
 COPY src/ /weather/src/

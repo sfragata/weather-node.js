@@ -14,7 +14,11 @@ exports.list = function (req, res) {
     httpResponse.setEncoding('utf8');
 
     if (httpResponse.statusCode !== 200) {
-      cityListLogger.error('status code %s', httpResponse.statusCode);
+      cityListLogger.error('status code %s response: %j', httpResponse.statusCode, {
+        statusMessage: httpResponse.statusMessage,
+        headers: httpResponse.headers
+      });
+      
       res.sendStatus(httpResponse.statusCode);
       return;
     }
