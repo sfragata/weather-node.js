@@ -1,6 +1,6 @@
 Weather-node.js
 ===============
-Simple node.js web application that extracts JSON information from http://www.geobytes.com/free-ajax-cities-jsonp-api.htm
+Simple node.js web application that extracts JSON information from https://www.geobytes.com/free-ajax-cities-jsonp-api.htm
 to retrieve the cities list (for autocomplete) and from http://openweathermap.org to show the forecast.
 
 ## Setup

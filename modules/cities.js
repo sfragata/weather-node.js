@@ -1,16 +1,16 @@
-var http = require('http');
+var https = require('https');
 var log4js = require('log4js');
 
 var cityListLogger = log4js.getLogger('cities');
 
-var baseUrl = 'http://gd.geobytes.com/AutoCompleteCity?callback=?&q=';
+var baseUrl = 'https://gd.geobytes.com/AutoCompleteCity?callback=?&q=';
 
 exports.list = function (req, res) {
   var bodyResp = '';
   var data = req.body;
   cityListLogger.info('request query: %s', data.city);
   var url = baseUrl + encodeURIComponent(data.city);
-  http.get(url, function (httpResponse) {
+  https.get(url, function (httpResponse) {
     httpResponse.setEncoding('utf8');
 
     if (httpResponse.statusCode !== 200) {

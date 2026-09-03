@@ -3,7 +3,6 @@
 var assert = require('assert');
 var sinon = require('sinon');
 var supertest = require('supertest');
-var http = require('http');
 var https = require('https');
 var EventEmitter = require('events');
 
@@ -25,7 +24,7 @@ describe('API Integration Tests', function () {
 
   describe('POST /weather/city/list', function () {
     it('should return 200 with city list on success', function (done) {
-      sinon.stub(http, 'get').callsFake(function (url, callback) {
+      sinon.stub(https, 'get').callsFake(function (url, callback) {
         var mockResponse = new EventEmitter();
         mockResponse.statusCode = 200;
         mockResponse.setEncoding = sinon.stub();
@@ -50,7 +49,7 @@ describe('API Integration Tests', function () {
     });
 
     it('should return 500 when upstream city service is unavailable', function (done) {
-      sinon.stub(http, 'get').callsFake(function (url, callback) {
+      sinon.stub(https, 'get').callsFake(function (url, callback) {
         var mockRequest = new EventEmitter();
         process.nextTick(function () {
           mockRequest.emit('error', new Error('Connection refused'));

@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var sinon = require('sinon');
-var http = require('http');
+var https = require('https');
 var EventEmitter = require('events');
 
 describe('cities module', function () {
@@ -25,7 +25,7 @@ describe('cities module', function () {
   });
 
   it('should return city list on successful HTTP response', function (done) {
-    sinon.stub(http, 'get').callsFake(function (url, callback) {
+    sinon.stub(https, 'get').callsFake(function (url, callback) {
       var mockResponse = new EventEmitter();
       mockResponse.statusCode = 200;
       mockResponse.setEncoding = sinon.stub();
@@ -46,7 +46,7 @@ describe('cities module', function () {
   });
 
   it('should return 500 when HTTP request fails', function (done) {
-    sinon.stub(http, 'get').callsFake(function (url, callback) {
+    sinon.stub(https, 'get').callsFake(function (url, callback) {
       var mockRequest = new EventEmitter();
       process.nextTick(function () {
         mockRequest.emit('error', new Error('Connection refused'));
@@ -64,7 +64,7 @@ describe('cities module', function () {
   });
 
   it('should forward non-200 status codes', function (done) {
-    sinon.stub(http, 'get').callsFake(function (url, callback) {
+    sinon.stub(https, 'get').callsFake(function (url, callback) {
       var mockResponse = new EventEmitter();
       mockResponse.statusCode = 503;
       mockResponse.setEncoding = sinon.stub();
