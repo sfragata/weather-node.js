@@ -44,6 +44,6 @@
     "js-yaml": "^4.3.2",
     "glob": "^13.0.6",
     "diff": "^8.0.4",
-    "serialize-javascript": "^7.0.5"
+    "serialize-javascript": "^7.1.4"
   }
 }
